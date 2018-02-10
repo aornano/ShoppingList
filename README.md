@@ -7,11 +7,7 @@
 [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
 
-Available directions:
-
-![](directions.png) 
-
-Demo:
+**Demo:**
 
 ![demo](demo4.gif) 
 
@@ -55,24 +51,26 @@ Methods to handling goods in a basket :
 - iOS 10.3+
 - Xcode 9.2+
 - Swift 4.0+
+- Universal ( _from iPhone 5 to iPhone X, from iPad 5th gen to iPad Pro 2_ )
+- Both orientation available ( portrait  / landscape )
 
 ## Communication
 
-- If you **found a bug**, open an issue.
-- If you **have a feature request**, open an issue.
+- If you **found a bug**, please open an issue.
+- If you **have a feature request**, please open an issue.
 
 ## Installation
 
-Download the project and run it.
+Simply download the project and run it.
 
 ## Memory managment
 
-The app don't have memory leaks or retain cycles according to the Leaks instrument (Xcode) as showed in this picture:
+The app don't have **memory leaks** or **retain cycles** according also to the Leaks instrument (Xcode) as showed in this picture:
 
 ![](leaks.png) 
 
-The ```deinit``` method inside the ```MainViewController``` is called also when the application terminated because it's the **rootViewController** for the initial ```UINavigationController```
+The ```deinit``` method inside the ```MainViewController``` is called also when the application terminated because it's the **rootViewController** for the initial ```UINavigationController``` and there aren't other transactions besides the checkout button.
 
-Just only to make this test and verify the correct deallocation of memory during the ```MainViewController``` releasing, I've added a temporary ```UIViewController``` as a **rootViewController** for the initial ```UINavigationController``` with a simple button that push and show the ```MainViewController```. As you can see after the press of the back button to exit from the ```MainViewController```, the ```deinit``` method was called correctly.
+So, just only to make this test and verify the correct deallocation of memory during the ```MainViewController``` releasing, I've added a temporary ```UIViewController``` as a **rootViewController** for the initial ```UINavigationController``` with a simple button that push and show the ```MainViewController```.  As you can see, after the tap of the back button to exit from the ```MainViewController```, the ```deinit``` method was called correctly.
 
 ![](deinit.gif) 

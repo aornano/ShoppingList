@@ -1,5 +1,11 @@
-## SKJoystick
->SKJoystick is a retro-arcade joystick for SpriteKit
+## ShoppingList
+>This is an iOS project to price a simple basket of goods in a number of different currencies.
+The goods that can be purchased, which are all priced in US$, are:
+- Peas: $ 0,95 per bag
+- Eggs: $ 2,10 per dozen
+- Milk: $ 1,30 per bottle
+- Beans: $ 0,73 per can
+
 
 [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)

@@ -1,58 +1,58 @@
 ## ShoppingList
->This is an iOS project to price a simple basket of goods in a number of different currencies.
-The goods that can be purchased, which are all priced in US$, are:
-- Peas: $ 0,95 per bag
-- Eggs: $ 2,10 per dozen
-- Milk: $ 1,30 per bottle
-- Beans: $ 0,73 per can
-
+>This iOS project can price a simple basket of goods in a number of different currencies.
 
 [![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
 )](https://developer.apple.com/swift)
 [![Build Status](https://travis-ci.org/Alamofire/Alamofire.svg?branch=master)](https://travis-ci.org/Alamofire/Alamofire)
 [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
 )](https://developer.apple.com/iphone/index.action)
-[![License](https://img.shields.io/cocoapods/l/BadgeSwift.svg?style=flat)](/LICENSE)
 
 Available directions:
 
 ![](directions.png) 
 
-Shake:
+Demo:
 
-![shake](https://github.com/aornano/SKAdvancedLabelNode/blob/master/demo2.gifs) 
+![demo](demo4.gif) 
 
-**SKJoystick** is a library written in Swift to create a typical retro arcade joystick for SpriteKit.
-Using a couple of texture , the famous [SKEase](https://github.com/craiggrummitt/ActionSwift3/tree/master/ActionSwift3) library to simulate the elastic bouncing animation. I've added also three button to have a complete controls to move your hero , jump, fire and made other actions..
+The goods that can be purchased, which are all priced in US$, are:
+- Peas: $ 0,95 per bag
+- Eggs: $ 2,10 per dozen
+- Milk: $ 1,30 per bottle
+- Beans: $ 0,73 per can
+The program shall allow the user to add or remove items in a basket. The user can click on a checkout button, which will then display the total price for the basket with the option to display the amount in different currencies.
+
+The list of currencies come from http://jsonrates.com/.
 
 - [Features](#features)
-- [ToDo](#todo)
+- [Testing](#testing)
 - [Requirements](#requirements)
 - [Communication](#communication)
 - [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-
+- [Memory managment](#memory_managment)
 
 ## Features
 
-Creating a joystick node :
+- [x] If you set the property ```.rate``` , the basket calculate automatically the total in the currency rate you have setted.
+- [x] If you remove ALL products from your basket you always know the price of each good, in case you decide to not buy a too expensive product for you.
+- [x] Network availability is always showed as well as the last currencies update date
 
+Methods to handling goods in a basket :
 ```
-    - convenience init(texture: SKTexture?, color: SKColor = .clear, size: CGSize = CGSize(width:200.0,height:200.0),knob:String! = "blueKnob.png") {
-      Initializes a new SKSpriteNode object aka our joystick.
+    -  addGood(_ name:String, imageName:String? = nil, amount:Int? = 1, currentPriceForUnity:Double = 0.0, currentCurrency:String? = "USD") 
+    - removeGood(_ name:String) 
+    - checkGood(_ name:String)->Bool
+    - getGood(_ name:String)->Good?
+    - calculateQuantity()->Int
+    - calculateTotal()->Double
 ```
 
-- [x] 8 directions: up, down, left, righ and diagonals
-- [x] change color, alpha and size
-- [x] knowing in time real the directions and the releasing through delegate methods
-
-## ToDo
-- [x] new knob textures
+## Testing
+- [x] The ```XCTestCase``` class ```ShoppingListTests``` contains a list of useful methods to test the basket model and the network API calls
 
 ## Requirements
 
-- iOS 9.0+
+- iOS 10.3+
 - Xcode 9.2+
 - Swift 4.0+
 
@@ -60,46 +60,19 @@ Creating a joystick node :
 
 - If you **found a bug**, open an issue.
 - If you **have a feature request**, open an issue.
-- If you **want to contribute**, submit a pull request.
 
 ## Installation
 
-Add the source folder to your project and use it.
+Download the project and run it.
 
-## Usage
+## Memory managment
 
-```
-class GameScene: SKScene, SKJoystickDelegate {
-    var joyStick : SKJoystick!
-    override func didMove(to view: SKView) {
-        // Show joystick
-        let joySize = CGSize(width:300,height:300)
-        joyStick = SKJoystick.init(texture: nil, color: .clear, size: joySize, knob:"blueKnob.png")
-        self.addChild(joyStick)
-        joyStick.zPosition = 1
-        joyStick.alpha = 0.5
-        joyStick.position = CGPoint(x:self.frame.width/7,y:self.frame.height/4)
-        joyStick.isUserInteractionEnabled = true
-        joyStick.delegate = self
-    }
-```
+The app don't have memory leaks or retain cycles according to the Leaks instrument (Xcode) as showed in this picture:
 
-Follow the example located to ```GameScene.swift``` to understand the delegate methods (really simple to use..), the property ```direction``` contain one of these constants:
+![](leaks.png) 
 
-```
-enum Sense: Int {
-    case UP = 0
-    case UP_RIGHT = 1
-    case RIGHT = 2
-    case DOWN_RIGHT = 3
-    case DOWN = 4
-    case DOWN_LEFT = 5
-    case LEFT = 6
-    case UP_LEFT = 7
-    case RELEASED = 8
-}
-```
+The ```deinit``` method inside the ```MainViewController``` is called also when the application terminated because it's the **rootViewController** for the initial ```UINavigationController```
 
-## License
-SKJoystick is released under the [MIT License](LICENSE)
+Just only to make this test and verify the correct deallocation of memory during the ```MainViewController``` releasing, I've added a temporary ```UIViewController``` as a **rootViewController** for the initial ```UINavigationController``` with a simple button that push and show the ```MainViewController```. As you can see after the press of the back button to exit from the ```MainViewController```, the ```deinit``` method was called correctly.
 
+![](deinit.gif) 

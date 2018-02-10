@@ -69,9 +69,10 @@ Simply download the project and run it.
 
 ## Memory managment
 
-The app don't have **memory leaks** or **retain cycles** according also to the Leaks instrument (Xcode) as showed in this picture:
+The app don't have **memory leaks** or **retain cycles** according also to the Leaks instrument (Xcode instruments) and the **Debug Memory Graph** (Xcode) as showed in these pictures:
 
 ![](leaks.png) 
+![](xcodedmg.png) 
 
 The ```deinit``` method inside the ```MainViewController``` is called also when the application terminated because it's the **rootViewController** for the initial ```UINavigationController``` and there aren't other transactions besides the checkout button.
 

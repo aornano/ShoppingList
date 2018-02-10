@@ -31,7 +31,7 @@ The list of currencies come from http://jsonrates.com/.
 
 ## Features
 
-- [x] If you set the property ```.rate``` , the basket will calculate automatically the total in the currency rate you have setted.
+- [x] If you set the property ```.rate``` of the object ```basket```, this one  will calculate automatically the total in the currency rate you have setted.
 - [x] If you remove ALL products from your basket you always know the price of each good, in case you decide to not buy a too expensive product for you.
 - [x] The network availability is always checked and showed as well as the last currencies update date.
 

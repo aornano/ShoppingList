@@ -16,6 +16,8 @@ The goods that can be purchased, which are all priced in US$, are:
 - Eggs: $ 2,10 per dozen
 - Milk: $ 1,30 per bottle
 - Beans: $ 0,73 per can
+
+
 The program shall allow the user to add or remove items in a basket. The user can click on a checkout button, which will then display the total price for the basket with the option to display the amount in different currencies.
 
 The list of currencies come from http://jsonrates.com/.
@@ -25,7 +27,7 @@ The list of currencies come from http://jsonrates.com/.
 - [Requirements](#requirements)
 - [Communication](#communication)
 - [Installation](#installation)
-- [Memory managment](#memory_managment)
+- [Memory managment](#memory-managment)
 
 ## Features
 

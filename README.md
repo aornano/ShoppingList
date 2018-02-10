@@ -74,7 +74,7 @@ The app don't have **memory leaks** or **retain cycles** according also to the L
 ![](leaks.png) 
 ![](xcodedmg.png) 
 
-The ```deinit``` method inside the ```MainViewController``` is called also when the application terminated because it's the **rootViewController** for the initial ```UINavigationController``` and there aren't other transactions besides the checkout button.
+The ```deinit``` method inside the ```MainViewController``` is called only when the application terminated because it's the **rootViewController** for the initial ```UINavigationController``` and because there aren't other transactions or external interactions besides the checkout button.
 
 So, just only to make this test and verify the correct deallocation of memory during the ```MainViewController``` releasing, I've added a temporary ```UIViewController``` as a **rootViewController** for the initial ```UINavigationController``` with a simple button that push and show the ```MainViewController```.  As you can see, after the tap of the back button to exit from the ```MainViewController```, the ```deinit``` method was called correctly.
 

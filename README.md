@@ -31,18 +31,20 @@ The list of currencies come from http://jsonrates.com/.
 
 ## Features
 
-- [x] If you set the property ```.rate``` , the basket calculate automatically the total in the currency rate you have setted.
+- [x] If you set the property ```.rate``` , the basket will calculate automatically the total in the currency rate you have setted.
 - [x] If you remove ALL products from your basket you always know the price of each good, in case you decide to not buy a too expensive product for you.
-- [x] Network availability is always showed as well as the last currencies update date
+- [x] The network availability is always checked and showed as well as the last currencies update date.
 
 Methods to handling goods in a basket :
 ```
-    -  addGood(_ name:String, imageName:String? = nil, amount:Int? = 1, currentPriceForUnity:Double = 0.0, currentCurrency:String? = "USD") 
+    - addGood(_ name:String, imageName:String? = nil, amount:Int? = 1, currentPriceForUnity:Double = 0.0, currentCurrency:String? = "USD") 
     - removeGood(_ name:String) 
     - checkGood(_ name:String)->Bool
     - getGood(_ name:String)->Good?
     - calculateQuantity()->Int
     - calculateTotal()->Double
+
+    // You can also simply add a product with addGood("Bread")
 ```
 
 ## Testing
@@ -76,3 +78,9 @@ The ```deinit``` method inside the ```MainViewController``` is called also when 
 So, just only to make this test and verify the correct deallocation of memory during the ```MainViewController``` releasing, I've added a temporary ```UIViewController``` as a **rootViewController** for the initial ```UINavigationController``` with a simple button that push and show the ```MainViewController```.  As you can see, after the tap of the back button to exit from the ```MainViewController```, the ```deinit``` method was called correctly.
 
 ![](deinit.gif) 
+
+To avoid the retain cycles of ```self``` inside blocks, according to the [Swift evolution mailing list](https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20160118/007425.html), I've used the syntax :
+```
+[weak self]
+guard let `self` = self else { return }
+```
